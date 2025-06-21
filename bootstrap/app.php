@@ -21,8 +21,13 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (Throwable $throwable) {
-            (new TelescopeUnauthenticatedHandler())->handler(request(), $throwable);
-            (new ApiExceptionHandler(app()))->render(request(), $throwable);
+            return match (true) {
+                request()->is('api/*') => (new ApiExceptionHandler(app()))->render(request(), $throwable),
+
+                request()->is('telescope', 'telescope/*') => (new TelescopeUnauthenticatedHandler())->handler(request(), $throwable),
+
+                default => null,
+            };
         });
     })
     ->create();
