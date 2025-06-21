@@ -3,12 +3,14 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiResponseHandler {
-    public function handle(Request $request, Closure $next): Response {
+class ApiResponseHandler
+{
+    public function handle(Request $request, Closure $next): Response
+    {
         if ($request->is('api/*')) {
             $request->headers->set('Accept', 'application/json');
         }

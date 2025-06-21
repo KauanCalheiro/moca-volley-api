@@ -6,10 +6,12 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class AuthenticationTest extends TestCase {
+class AuthenticationTest extends TestCase
+{
     use RefreshDatabase;
 
-    public function test_user_can_authenticate(): void {
+    public function test_user_can_authenticate(): void
+    {
         $user = User::create([
             'email'    => 'teste@example.com',
             'name'     => 'Test User',
@@ -25,7 +27,8 @@ class AuthenticationTest extends TestCase {
         $response->assertJson(['success' => true]);
     }
 
-    public function test_users_can_not_authenticate_with_invalid_password(): void {
+    public function test_users_can_not_authenticate_with_invalid_password(): void
+    {
         $user = User::factory()->create();
 
         $response = $this->post(route('auth.login'), [
@@ -40,7 +43,8 @@ class AuthenticationTest extends TestCase {
             ]);
     }
 
-    public function test_users_can_logout(): void {
+    public function test_users_can_logout(): void
+    {
         $user = User::create([
             'email'    => 'teste@example.com',
             'name'     => 'Test User',

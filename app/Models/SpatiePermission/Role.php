@@ -2,11 +2,12 @@
 
 namespace App\Models\SpatiePermission;
 
-use \Spatie\Permission\Models\Role as BaseRole;
+use Spatie\Permission\Models\Role as BaseRole;
 
-class Role extends BaseRole {
+class Role extends BaseRole
+{
     protected $hidden = [
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 }

@@ -9,18 +9,22 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
-class LoginRequest extends FormRequest {
-    public function authorize(): bool {
+class LoginRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
         return true;
     }
 
-    public function prepareForValidation(): void {
+    public function prepareForValidation(): void
+    {
         $this->merge([
             'driver' => $this->input('driver', 'sanctum'),
         ]);
     }
 
-    public function rules(): array {
+    public function rules(): array
+    {
         $driver = $this->input('driver', 'sanctum');
 
         return $driver == 'google'
@@ -33,7 +37,8 @@ class LoginRequest extends FormRequest {
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate() {
+    public function authenticate()
+    {
         $this->ensureIsNotRateLimited();
 
         $token = AuthService::make($this->validated())->handleLogin();
@@ -48,8 +53,9 @@ class LoginRequest extends FormRequest {
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function ensureIsNotRateLimited(): void {
-        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+    public function ensureIsNotRateLimited(): void
+    {
+        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 
@@ -68,18 +74,21 @@ class LoginRequest extends FormRequest {
     /**
      * Get the rate limiting throttle key for the request.
      */
-    public function throttleKey(): string {
+    public function throttleKey(): string
+    {
         return Str::transliterate(Str::lower($this->input('email')) . '|' . $this->ip());
     }
 
-    private function googleRules() {
+    private function googleRules()
+    {
         return [
             'token'  => ['required', 'string'],
             'driver' => ['in:sanctum,google'],
         ];
     }
 
-    private function sanctumRules() {
+    private function sanctumRules()
+    {
         return [
             'email'       => ['required', 'string'],
             'password'    => ['required', 'string'],

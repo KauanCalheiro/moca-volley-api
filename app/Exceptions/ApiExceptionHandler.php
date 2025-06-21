@@ -11,11 +11,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Throwable;
 
-class ApiExceptionHandler extends Handler {
+class ApiExceptionHandler extends Handler
+{
     /**
      * Render the exception as an HTTP response.
      */
-    public function render($request, Throwable $throwable) {
+    public function render($request, Throwable $throwable)
+    {
         if ($request->is('api/*')) {
             return match (true) {
                 $throwable instanceof AuthenticationException => response()->json([

@@ -4,11 +4,12 @@ use App\Enums\RoleEnum;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration {
+return new class () extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void {
+    public function up(): void
+    {
         $user = User::firstOrCreate(
             [
                 'email' => 'admin@admin.com',
@@ -16,7 +17,7 @@ return new class extends Migration {
             [
                 'name'     => 'Admin',
                 'password' => bcrypt('admin'),
-            ]
+            ],
         );
 
         $user->assignRole(RoleEnum::ADMIN);
@@ -25,7 +26,8 @@ return new class extends Migration {
     /**
      * Reverse the migrations.
      */
-    public function down(): void {
+    public function down(): void
+    {
         User::where('email', 'admin@admin.com')->delete();
     }
 };
