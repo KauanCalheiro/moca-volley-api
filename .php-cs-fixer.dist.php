@@ -13,7 +13,6 @@ $finder = PhpCsFixer\Finder::create()
     ->append([__FILE__]);            // Inclui o próprio arquivo de configuração
 
 return (new PhpCsFixer\Config())
-    ->setRiskyAllowed(true)          // Permite regras "risky" (comum em projetos Laravel)
     ->setRules([
         // ✅ Segue o padrão PSR-12 como base
         '@PSR12' => true,
