@@ -87,5 +87,9 @@ return (new PhpCsFixer\Config())
         // ✅ Remove PHPDocs redundantes como "@return void" quando desnecessário
         'phpdoc_no_empty_return'     => true,
         'no_superfluous_phpdoc_tags' => true,
+
+        'array_indentation'                   => true,
+        'no_whitespace_before_comma_in_array' => true,
+        'trim_array_spaces'                   => true,
     ])
     ->setFinder($finder);

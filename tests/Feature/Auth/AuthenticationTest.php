@@ -66,4 +66,18 @@ class AuthenticationTest extends TestCase
                 'message' => __('auth.logout.success'),
             ]);
     }
+
+    public function test_register_new_user(): void
+    {
+        $response = $this->post(route('auth.register'), [
+            'name'                  => 'Test User',
+            'email'                 => 'test@example.com',
+            'password'              => 'password',
+            'password_confirmation' => 'password',
+        ]);
+
+        $response->isSuccessful();
+        $response->assertJson(['success' => true]);
+        $response->assertJsonStructure(['token']);
+    }
 }

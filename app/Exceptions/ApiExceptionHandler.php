@@ -22,7 +22,7 @@ class ApiExceptionHandler extends Handler
             return match (true) {
                 $throwable instanceof AuthenticationException => response()->json([
                     'success' => false,
-                    'error'   => __($throwable->getMessage()) ,
+                    'error'   => __($throwable->getMessage()),
                 ], Response::HTTP_UNAUTHORIZED),
 
                 $throwable instanceof ValidationException => response()->json([
